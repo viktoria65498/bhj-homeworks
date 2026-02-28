@@ -1,18 +1,15 @@
-const tabNavigations = document.querySelectorAll('.tab__navigation')
-tabNavigations.forEach(tabNavigation => {
-    const tabs = tabNavigation.querySelectorAll('.tab')
-    const tabContents = tabNavigation.closest('.tabs').querySelectorAll('.tab__content')
+const tabsContainers = document.querySelectorAll('.tabs')
+tabsContainers.forEach(tabContainer => {
+    const tabs = tabContainer.querySelectorAll('.tab')
+    const contents = tabContainer.querySelectorAll('.tab__content')
 
-    function clickTab() {
-        tabs.forEach(tab => tab.classList.remove('tab_active'))
-        this.classList.add('tab_active')
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('tab_active'))
+            tab.classList.add('tab_active')
 
-        tabContents.forEach(content => content.classList.remove('tab__content_active'))
-        const index = Array.from(tabs).indexOf(this)
-        tabContents[index].classList.add('tab__content_active')
-    }
-
-    tabs.forEach(item  => {
-        item.onclick = clickTab
+            contents.forEach(c => c.classList.remove('tab__content_active'))
+            contents[index].classList.add('tab__content_active')
+        })
     })
 })

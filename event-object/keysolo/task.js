@@ -29,10 +29,12 @@ class Game {
       const keyDown = (event) => {
         const keyPressed = event.key
 
-        if (keyPressed === this.currentSymbol.textContent) {
-          this.success()
-        } else {
-          this.fail()
+        if (event.key.length === 1) {
+          if (keyPressed.toLowerCase() === this.currentSymbol.textContent.toLowerCase()) {
+            this.success()
+          } else {
+            this.fail()
+          }
         }
       }
 
