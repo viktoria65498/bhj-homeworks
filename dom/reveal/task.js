@@ -2,9 +2,9 @@ const reveals = document.querySelectorAll('.reveal')
 
 window.addEventListener('scroll', () => {
     reveals.forEach((reveal) => {
-        let position = reveal.getBoundingClientRect()
+        let coord = reveal.getBoundingClientRect()
 
-        if (position.top < window.innerHeight && position.bottom > 0) {
+        if (coord.bottom > 0 && coord.top < window.innerHeight) {
             reveal.classList.add('reveal_active')
         }
     })

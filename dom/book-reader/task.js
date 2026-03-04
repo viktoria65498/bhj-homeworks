@@ -1,64 +1,74 @@
-const bookControlSize = document.querySelectorAll('.book__control_font-size')
 const book = document.getElementById('book')
+const font__sizes = document.querySelectorAll('.font-size')
 
-bookControlSize.forEach(control => {
-    const fontSizes = control.querySelectorAll('.font-size')
+font__sizes.forEach(size => {
+    size.addEventListener('click', (event) => {
+        event.preventDefault()
 
-    fontSizes.forEach(fontSize => {
-        fontSize.onclick = function(event) {
-            event.preventDefault()
+        font__sizes.forEach(s => {s.classList.remove('font-size_active')})
+        size.classList.add('font-size_active')
 
-            fontSizes.forEach(item => item.classList.remove('font-size_active'))
-            this.classList.add('font-size_active')
+        book.classList.remove('book_fs-big', 'book_fs-small')
+        let bookSize = size.dataset.size
 
-            book.classList.remove('book_fs-small', 'book_fs-big')
-
-            const size = this.getAttribute('data-size')
-            if (size === 'small') {
-                book.classList.add('book_fs-small')
-            } else if (size === 'big') {
-                book.classList.add('book_fs-big')
-            }
+        if (bookSize === 'big') {
+            book.classList.add('book_fs-big')
         }
-    });
-})
 
-const bookControlColor = document.querySelectorAll('.book__control_color')
-
-bookControlColor.forEach(control => {
-    const colors = control.querySelectorAll('.color')
-
-    colors.forEach(color => {
-        color.onclick = function(event) {
-            event.preventDefault()
-
-            colors.forEach(item => item.classList.remove('color_active'))
-            this.classList.add('color_active')
-
-            book.classList.remove('text_color_gray', 'text_color_whitesmoke', 'text_color_black')
-
-            const col = this.getAttribute('data-text-color')
-            book.style.color = col
+        if (bookSize === 'small') {
+            book.classList.add('book_fs-small')
         }
     })
 })
 
-const bookControlBg = document.querySelectorAll('.book__control_background')
+const colors = document.querySelectorAll('.book__control_color .color')
 
-bookControlBg.forEach(control => {
-    const colorsBg = control.querySelectorAll('.color')
+colors.forEach(color => {
+    color.addEventListener('click', (event) => {
+        event.preventDefault()
 
-    colorsBg.forEach(color => {
-        color.onclick = function(event) {
-            event.preventDefault()
+        colors.forEach(c => {c.classList.remove('color_active')})
+        color.classList.add('color_active')
 
-            colorsBg.forEach(item => item.classList.remove('color_active'))
-            this.classList.add('color_active')
+        book.classList.remove('book_color-gray', 'book_color-whitesmoke', 'book_color-black')
+        let bookColor = color.dataset.textColor
 
-            book.classList.remove('bg_color_black', 'bg_color_gray', 'bg_color_white')
+        if (bookColor === 'black') {
+            book.classList.add('book_color-black')
+        }
 
-            const col = this.getAttribute('data-bg-color')
-            book.style.backgroundColor = col
+        if (bookColor === 'gray') {
+            book.classList.add('book_color-gray')
+        }
+
+        if (bookColor === 'whitesmoke') {
+            book.classList.add('book_color-whitesmoke')
+        }
+    })
+})
+
+const bgColors = document.querySelectorAll('.book__control_background .color')
+
+bgColors.forEach(bg => {
+    bg.addEventListener('click', (event) => {
+        event.preventDefault()
+
+        bgColors.forEach(b => {b.classList.remove('color_active')})
+        bg.classList.add('color_active')
+
+        book.classList.remove('book_bg-gray', 'book_bg-black', 'book_bg-white')
+        let bookBg = bg.dataset.bgColor
+
+        if (bookBg === 'black') {
+            book.classList.add('book_bg-black')
+        }
+
+        if (bookBg === 'gray') {
+            book.classList.add('book_bg-gray')
+        }
+
+        if (bookBg === 'white') {
+            book.classList.add('book_bg-white')
         }
     })
 })
