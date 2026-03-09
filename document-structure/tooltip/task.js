@@ -1,22 +1,18 @@
-const hasTooltips = document.querySelectorAll('.has-tooltip')
-const tip = document.createElement('div')
-tip.className = 'tooltip'
-document.body.appendChild(tip)
+const has_tooltips = document.querySelectorAll('.has-tooltip')
+const tooltip = document.createElement('div')
+tooltip.className = 'tooltip'
 
-hasTooltips.forEach(hasTooltip => {
-    hasTooltip.addEventListener('click', function (event) {
-        event.preventDefault()
+has_tooltips.forEach(has_tooltip => {
+    has_tooltip.addEventListener('click', (e) => {
+        e.preventDefault()
 
-        const coords = hasTooltip.getBoundingClientRect()
-        tip.style.left = coords.left + 'px'
-        tip.style.top = coords.bottom + 'px'
-        
-        if (tip.classList.contains('tooltip_active') && tip.textContent === hasTooltip.getAttribute('title')) {
-            tip.classList.remove('tooltip_active')
-            return
-        }
+        has_tooltip.append(tooltip)
+        tooltip.classList.add('tooltip_active')
+        tooltip.textContent = has_tooltip.getAttribute('title')
 
-        tip.textContent = hasTooltip.getAttribute('title')
-        tip.classList.add('tooltip_active')
-    })
+        has_tooltip.style.position = 'relative'
+        tooltip.style.position = 'absolute'
+        tooltip.style.left = '0px'
+        tooltip.style.top = has_tooltip.offsetHeight + 'px'
+    })  
 })
