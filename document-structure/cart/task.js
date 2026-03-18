@@ -1,8 +1,8 @@
-const cart__products = document.querySelector('.cart__products')
+const cartProducts = document.querySelector('.cart__products')
 const products = document.querySelectorAll('.product')
 
 products.forEach((product) => {
-    const product__image = product.querySelector('.product__image')
+    const productImage = product.querySelector('.product__image')
     const dec = product.querySelector('.product__quantity-control_dec')
     const inc = product.querySelector('.product__quantity-control_inc')
     const value = product.querySelector('.product__quantity-value')
@@ -23,22 +23,20 @@ products.forEach((product) => {
 
     add.addEventListener('click', () => {
         const id = product.dataset.id
-        const img = product__image.src
+        const img = productImage.src
         const quantity = parseInt(value.textContent)
 
-        const product__added = Array.from(cart__products.querySelectorAll('.cart__product')).find(p => p.dataset.id === id)
-        if (product__added) {
-            const count__elem = product__added.querySelector('.cart__product-count')
-            count__elem.textContent = parseInt(count__elem.textContent) + quantity
+        const productAdded = Array.from(cartProducts.querySelectorAll('.cart__product')).find(p => p.dataset.id === id)
+        if (productAdded) {
+            const countElem = productAdded.querySelector('.cart__product-count')
+            countElem.textContent = parseInt(countElem.textContent) + quantity
         } else {
-            const cart__product = document.createElement('div')
-            cart__product.className = 'cart__product'
-            cart__product.dataset.id = id
-
-            cart__product.innerHTML = `<img class="cart__product-image" src="${img}">
-                    <div class="cart__product-count">${quantity}</div>`
-            
-            cart__products.append(cart__product)
+            cartProducts.insertAdjacentHTML('beforeend', `
+                <div class="cart__product" data-id="${id}">
+                    <img class="cart__product-image" src="${img}">
+                    <div class="cart__product-count">${quantity}</div>
+                </div>
+            `)
         }
     })
 })

@@ -3,39 +3,30 @@ const btn = document.getElementById('tasks__add')
 const list = document.getElementById('tasks__list')
 
 function addTask() {
-    if (!input.value.trim()) {
+    const title = input.value.trim()
+
+    if (!title) {
         return
     }
 
-    const task = document.createElement('div')
-    task.className = 'task'
+    list.insertAdjacentHTML('afterbegin', `
+        <div class="task">
+            <div class="task__title">${title}</div>
+            <a href="#" class="task__remove">&times;</a>
+        </div>
+    `)
 
-    const title = document.createElement('div')
-    title.className = 'task__title'
-    title.textContent = input.value
     input.value = ''
-
-    const remove = document.createElement('a')
-    remove.className = 'task__remove'
-    remove.textContent = '×'
-
-    remove.addEventListener('click', (e) => {
-        e.preventDefault()
-        task.remove()
-    })
-
-    task.append(title, remove)
-    list.append(task)
 }
-
-input.addEventListener('keydown', (e) => {    
-    if (e.key === 'Enter') {
-        e.preventDefault()
-        addTask()
-    }
-})
 
 btn.addEventListener('click', (e) => {    
     e.preventDefault()
     addTask()
+})
+
+list.addEventListener('click', (e) => {
+    if (e.target.classList.contains('task__remove')) {
+        e.preventDefault()
+        e.target.closest('.task').remove()
+    }
 })
