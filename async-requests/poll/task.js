@@ -1,23 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const pollTitle = document.getElementById('poll__title')
+    const pollAnswers= document.getElementById('poll__answers')
+
     const xhr = new XMLHttpRequest()
     const url = 'https://students.netoservices.ru/nestjs-backend/poll'
 
-    const title = document.getElementById('poll__title')
-    const answers = document.getElementById('poll__answers')
-
     xhr.addEventListener('readystatechange', () => {
         if (xhr.readyState === xhr.DONE) {
-            const data = JSON.parse(xhr.responseText)
-            const poll = data.data
+            const data = JSON.parse(xhr.response)
 
-            title.textContent = poll.title
+            pollTitle.textContent = data.data.title
 
-            poll.answers.forEach(answerText => {
+            data.data.answers.forEach(answer => {
                 const button = document.createElement('button')
                 button.classList.add('poll__answer')
-                button.innerHTML = `${answerText}`
+                button.textContent = answer
 
-                answers.appendChild(button)
+                pollAnswers.append(button)
 
                 button.addEventListener('click', () => {
                     alert('Спасибо, ваш голос засчитан!')
@@ -25,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         }
     })
-
+    
     xhr.open('GET', url)
     xhr.send()
 })

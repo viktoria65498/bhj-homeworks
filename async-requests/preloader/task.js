@@ -1,16 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loader = document.querySelector('.loader')
+    const loader = document.getElementById('loader')
     const items = document.getElementById('items')
     loader.classList.add('loader_active')
 
     const xhr = new XMLHttpRequest()
     const url = 'https://students.netoservices.ru/nestjs-backend/slow-get-courses'
-
+    
     xhr.addEventListener('readystatechange', () => {
         if (xhr.readyState === xhr.DONE) {
-            loader.classList.remove('loader_active')
-
-            const data = JSON.parse(xhr.responseText)
+            const data = JSON.parse(xhr.response)
             const valutes = data.response.Valute
 
             for (const code in valutes) {
@@ -27,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 items.appendChild(item)
             }
+
+            loader.classList.remove('loader_active')
         }
     })
 

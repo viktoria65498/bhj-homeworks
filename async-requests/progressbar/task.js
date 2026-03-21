@@ -1,8 +1,8 @@
-const form = document.getElementById('form')
 const progress = document.getElementById('progress')
+const form = document.getElementById('form')
 const url = 'https://students.netoservices.ru/nestjs-backend/upload'
 
-form.addEventListener('submit', function(e) {
+form.addEventListener('submit', (e) => {
     e.preventDefault()
 
     const formData = new FormData(form)
